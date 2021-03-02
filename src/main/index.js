@@ -21,9 +21,18 @@ function createWindow () {
    */
   
   mainWindow = new BrowserWindow({
-    height: 563,
+    height: 800,
     useContentSize: true,
-    width: 1000
+    width: 1000,
+    transparent: true,
+    resizable: false,
+    frame: false,
+    webPreferences: {
+      devTools: false,
+      nodeIntegration: true,
+      enablemotemodule: true
+    }
+
   })
 
   mainWindow.loadURL(winURL)
@@ -36,6 +45,7 @@ function createWindow () {
 const {PythonShell}  = require("python-shell")
 
 
+var cmd = 'taskkill /f /t /im  python.exe';
 var pyshell = new PythonShell('app.py');
 pyshell.end(function (err) {
       if (err) console.log('error' + err + ': app.py shutdown');
@@ -47,12 +57,12 @@ app.on('ready', createWindow)
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
+    nodeCmd.run(cmd);
+    nodeCmd.run(cmd);
     console.log('app Done')
+    nodeCmd.run(cmd);
+    nodeCmd.run(cmd);
   }
-  var cmd = 'taskkill /f /t /im  python.exe';
-  nodeCmd.run(cmd);
-  nodeCmd.run(cmd);
-  nodeCmd.run(cmd);
 })
 
 app.on('activate', () => {
